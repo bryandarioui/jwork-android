@@ -8,66 +8,39 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainListAdapter extends BaseExpandableListAdapter {
-    private Context _context;
-    private List<String> _listDataHeader; // header titles
-    // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
+    private Context context;
+    private ArrayList<Recruiter> listDataHeader;
+    private HashMap<Recruiter, ArrayList<Job>> listDataChild;
 
-    public MainListAdapter(Context context, List<String> listDataHeader,
-                           HashMap<String, List<String>> listChildData) {
-        this._context = context;
-        this._listDataHeader = listDataHeader;
-        this._listDataChild = listChildData;
-    }
-
-    @Override
-    public Object getChild(int groupPosition, int childPosititon) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .get(childPosititon);
-    }
-
-    @Override
-    public long getChildId(int groupPosition, int childPosition) {
-        return childPosition;
-    }
-
-    @Override
-    public View getChildView(int groupPosition, final int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
-
-        final String childText = (String) getChild(groupPosition, childPosition);
-
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.layout_job, null);
-        }
-
-        TextView txtListChild = (TextView) convertView
-                .findViewById(R.id.lblListItem);
-
-        txtListChild.setText(childText);
-        return convertView;
-    }
-
-    @Override
-    public int getChildrenCount(int groupPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .size();
-    }
-
-    @Override
-    public Object getGroup(int groupPosition) {
-        return this._listDataHeader.get(groupPosition);
+    public MainListAdapter(Context context, ArrayList<Recruiter> listDataHeader, HashMap<Recruiter, ArrayList<Job>> listDataChild) {
+        this.context = context;
+        this.listDataHeader = listDataHeader;
+        this.listDataChild = listDataChild;
     }
 
     @Override
     public int getGroupCount() {
-        return this._listDataHeader.size();
+        return this.listDataHeader.size();
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return this.listDataChild.get(this.listDataHeader.get(groupPosition)).size();
+    }
+
+    @Override
+    public Recruiter getGroup(int groupPosition) {
+        return this.listDataHeader.get(groupPosition);
+    }
+
+    @Override
+    public Job getChild(int groupPosition, int childPosition) {
+        return this.listDataChild.get(this.listDataHeader.get(groupPosition)).get(childPosition);
     }
 
     @Override
@@ -76,21 +49,8 @@ public class MainListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.layout_recruiter, null);
-        }
-
-        TextView lblListHeader = (TextView) convertView
-                .findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
-
-        return convertView;
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
     }
 
     @Override
@@ -99,7 +59,39 @@ public class MainListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        Recruiter recruiter = (Recruiter)  getGroup(groupPosition);
+        String headerTitle = recruiter.getName();
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.layout_recruiter, null);
+        }
+
+        TextView lbListHeader = convertView.findViewById(R.id.lbListHeader);
+        lbListHeader.setTypeface(null, Typeface.BOLD);
+        lbListHeader.setText(headerTitle);
+
+        return convertView;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        Job job = (Job) getChild(groupPosition, childPosition);
+        String childText = job.getName();
+        if(convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.layout_job, null);
+        }
+
+        TextView txtListChild = convertView.findViewById(R.id.lbListItem);
+        txtListChild.setText(childText);
+
+        return convertView;
+    }
+
+    @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
 }

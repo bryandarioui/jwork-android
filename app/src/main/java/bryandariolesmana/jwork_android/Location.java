@@ -33,10 +33,4 @@ public class Location {
     public void setDescription(String description){
         this.description = description;
     }
-
-    public String toString(){
-        return "Province = " + province +
-                "\nCity = " + city +
-                "\nDescription = " + description;
-    }
 }

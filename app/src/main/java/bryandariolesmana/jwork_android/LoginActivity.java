@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         Button buttonLogin = findViewById(R.id.ButtonText);
         TextView plainTextRegister = findViewById(R.id.ViewText);
 
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this,
                                         MainActivity.class);
+                                intent.putExtra("jobseekerid", jsonObject.getInt("id"));
                                 startActivity(intent);
                             }
                         } catch (JSONException error){
