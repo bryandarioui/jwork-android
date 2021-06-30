@@ -1,5 +1,8 @@
 package bryandariolesmana.jwork_android;
-
+/**
+ * @author Bryan Dario Lesmana(18016199940)
+ * @version 28/06/21
+ */
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -18,11 +21,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
-
+/**
+ * inisiasi class Selesai Job Activity
+ */
 public class SelesaiJobActivity extends AppCompatActivity {
     private int jobSeekerId;
     private int jobSeekerInvoiceId;
-
+    /**
+     * method untuk oncreate view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +53,18 @@ public class SelesaiJobActivity extends AppCompatActivity {
         layout.setVisibility(View.INVISIBLE);
         layout2.setVisibility(View.VISIBLE);
 
-    fetchJob();
-    buttonSelect();
+        /**
+         * method untuk mengambil job request data pada invoice jobseeker
+         */
+        fetchJob();
+        buttonSelect();
     }
 
     private void fetchJob() {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
+            /**
+             * method untuk merespon jwork
+             */
             @Override
             public void onResponse(String response) {
                 ConstraintLayout layout = findViewById(R.id.selesai_layout);
@@ -103,7 +117,15 @@ public class SelesaiJobActivity extends AppCompatActivity {
     private void buttonSelect() {
         Button btnFinish = findViewById(R.id.btnFinish);
         Button btnCancel = findViewById(R.id.btnCancel);
+
+        /**
+         * button utuk cancel
+         */
         btnCancel.setOnClickListener(new View.OnClickListener() {
+            /**
+             * method yang tampil setelah mengklik tombol FINISH
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -125,12 +147,17 @@ public class SelesaiJobActivity extends AppCompatActivity {
                         }
                     }
                 };
+
                 JobBatalRequest jbr = new JobBatalRequest(String.valueOf(jobSeekerInvoiceId), responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SelesaiJobActivity.this);
                 queue.add(jbr);
             }
         });
         btnFinish.setOnClickListener(new View.OnClickListener() {
+            /**
+             * method setelah menekan tombol CANCEL
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -156,10 +183,5 @@ public class SelesaiJobActivity extends AppCompatActivity {
                 queue.add(jsr);
             }
         });
-
-
     }
-    }
-
-
-
+}

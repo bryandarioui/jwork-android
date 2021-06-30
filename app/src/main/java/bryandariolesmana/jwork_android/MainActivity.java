@@ -1,5 +1,8 @@
 package bryandariolesmana.jwork_android;
-
+/**
+ * @author Bryan Dario Lesmana(18016199940)
+ * @version 28/06/21
+ */
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,7 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * inisiasi class Main Activity
+ */
 public class MainActivity extends AppCompatActivity {
     private static Job job;
     ArrayList<Recruiter> listRecruiter = new ArrayList<>();
@@ -29,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private MainListAdapter listAdapter;
     ExpandableListView expListView;
     private static int jobSeekerId;
-
+    /**
+     * method onCreate untuk membuat view baru
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,18 +47,36 @@ public class MainActivity extends AppCompatActivity {
             jobSeekerId = extras.getInt("jobseekerid");
         }
         Button applied_job = findViewById(R.id.applied_job);
+        /**
+         * mengambil list view
+         */
         expListView = findViewById(R.id.lvExpandleListView);
+        /**
+         * menyiapkan data list
+         */
         refreshList();
 
         applied_job.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * method klik
+             * @param v
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SelesaiJobActivity.class);
                 intent.putExtra("jobseekerid", jobSeekerId);
                 startActivity(intent);
             }
         });
-
+        /**
+         * method untuk melihat tombol yang telah diklik
+         * @param parent
+         * @param v
+         * @param groupPosition
+         * @param childPosition
+         * @param id
+         * @return
+         */
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -71,9 +97,14 @@ public class MainActivity extends AppCompatActivity {
     public static Job getSelectedjob(){
         return job;
     }
-
+    /**
+     * method untuk main list adapter
+     */
     private void refreshList() {
-
+        /**
+         * method untuk menjawab/merespon jwork
+         * @param response
+         */
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

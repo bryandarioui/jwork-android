@@ -1,5 +1,8 @@
 package bryandariolesmana.jwork_android;
-
+/**
+ * @author Bryan Dario Lesmana(18016199940)
+ * @version 28/06/21
+ */
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,9 +19,14 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * insiasi class Login Activity
+ */
 public class LoginActivity extends AppCompatActivity {
-
+    /**
+     * inisiasi class on create untuk membuat layout view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -30,13 +38,22 @@ public class LoginActivity extends AppCompatActivity {
         Button buttonLogin = findViewById(R.id.ButtonText);
         TextView plainTextRegister = findViewById(R.id.ViewText);
 
-
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        /**
+         * insiasi button login listener
+         */
+        buttonLogin.setOnClickListener(new View.OnClickListener() {         /**
+         * insiasi method untuk onCreate
+         * @param view
+         */
             @Override
             public void onClick(View view){
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 Response.Listener<String> responseListener = new Response.Listener<String>(){
+                    /**
+                     * inisiasi method untuk menunggu jawaban jwork
+                     * @param response
+                     */
                     @Override
                     public void onResponse(String response){
                         try {
@@ -62,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         plainTextRegister.setOnClickListener(new View.OnClickListener(){
+            /**
+             * insiasi method menunggu jawaban ketika button diklik
+             * @param view
+             */
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(LoginActivity.this,

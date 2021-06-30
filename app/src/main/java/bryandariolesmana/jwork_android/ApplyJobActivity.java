@@ -1,5 +1,8 @@
 package bryandariolesmana.jwork_android;
-
+/**
+ * @author Bryan Dario Lesmana(18016199940)
+ * @version 28/06/21
+ */
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -17,10 +20,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/** Activity menampilkan Submission Invoice(Job)
- * @author
- * @version
- */
+
 public class ApplyJobActivity extends AppCompatActivity
         implements RadioGroup.OnCheckedChangeListener, TextWatcher
 {
@@ -163,7 +163,6 @@ public class ApplyJobActivity extends AppCompatActivity
         }
     }
 
-    /** not used */
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -176,7 +175,6 @@ public class ApplyJobActivity extends AppCompatActivity
             view.setEnabled(false);
     }
 
-    /** not used */
     @Override
     public void afterTextChanged(Editable s) {}
 }
